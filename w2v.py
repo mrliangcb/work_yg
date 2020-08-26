@@ -71,6 +71,9 @@ fenci_label=participle_from_file(label_all)
 
 print(fenci_text)
 print(fenci_label)
+fenci_text=[ i.encode()  for i in fenci_text]
+fenci_label=[ i.encode()  for i in fenci_label]
+
 
 #(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
 
