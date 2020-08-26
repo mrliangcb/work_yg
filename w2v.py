@@ -2,7 +2,7 @@ import h5py
 import jieba
 from gensim.models.word2vec import LineSentence, Word2Vec
 from gensim.models import word2vec
-
+import time
 
 
 
@@ -101,10 +101,11 @@ train_label=fenci_label[:train_split]
 train_w2v_list=train_txt+train_label
 
 print('start build w2v model')
+start_time=time.time()
 wv_model = Word2Vec(train_w2v_list, size=128, negative=5, workers=8, iter=10, window=3,
                         min_count=5)
-
-
+finish_time=time.time()
+print('训练时间:',start_time-finish_time)
 # vocab = wv_model.wv.vocab
 wv_model.save(r'./wv_model')
 # embedding_matrix = wv_model.wv.vectors
