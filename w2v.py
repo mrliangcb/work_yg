@@ -1,5 +1,5 @@
 import h5py
-
+import jieba
 
 
 
@@ -17,7 +17,7 @@ print(list(f.keys()))
 dset = f['text']
 text_all=[]
 print(len(dset))
-for i in range(10):
+for i in range(10): 
     text=dset[i]
     text=text.decode()
     text_all.append(text)
