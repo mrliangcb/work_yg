@@ -107,6 +107,11 @@ wv_model = Word2Vec(train_w2v_list, size=128, negative=5, workers=8, iter=10, wi
 finish_time=time.time()
 print('训练时间:',start_time-finish_time)
 # vocab = wv_model.wv.vocab
+
+for i,j in enumerate(wv_model.wv.index2word):
+    print(i,':',j)
+    if i >=10:
+        break
 wv_model.save(r'./wv_model')
 # embedding_matrix = wv_model.wv.vectors
 # np.savetxt('./embedding_w.txt', embedding_matrix, fmt='%0.8f')
