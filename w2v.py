@@ -96,6 +96,7 @@ fenci_label=participle_from_file(label_all)
 
 train_split=len(fenci_text)-500
 train_txt=fenci_text[:train_split]
+print('训练集长度:',len(train_txt))
 train_label=fenci_label[:train_split]
 
 train_w2v_list=train_txt+train_label
