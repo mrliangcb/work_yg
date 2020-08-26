@@ -63,11 +63,12 @@ def participle_from_file(text_list):
         # words = filter_stopwords(words)
 
         # jieba.disable_parallel()
-        data_list.append(' '.join(word_list) .strip()) 
+        # data_list.append(' '.join(word_list) .strip()) 
+        data_list.append(word_list) 
 
     return data_list
 
-fenci_text=participle_from_file(text_all)
+fenci_text=participle_from_file(text_all)   #就是   [['词1','词2'],['词3','词4']]
 fenci_label=participle_from_file(label_all)
 
 
