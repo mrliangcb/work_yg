@@ -3,7 +3,7 @@ import jieba
 from gensim.models.word2vec import LineSentence, Word2Vec
 from gensim.models import word2vec
 import time
-
+print('1.3版本')
 
 
 
