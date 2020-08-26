@@ -97,9 +97,23 @@ train_split=len(fenci_text)-500
 train_txt=fenci_text[:train_split]
 train_label=fenci_label[:train_split]
 
+train_w2v_list=train_txt+train_label
+
 print('start build w2v model')
-wv_model = Word2Vec(, size=300, negative=5, workers=8, iter=wv_train_epochs, window=3,
+wv_model = Word2Vec(train_w2v_list, size=128, negative=5, workers=8, iter=10, window=3,
                         min_count=5)
+
+
+# vocab = wv_model.wv.vocab
+wv_model.save(r'./wv_model')
+# embedding_matrix = wv_model.wv.vectors
+# np.savetxt('./embedding_w.txt', embedding_matrix, fmt='%0.8f')
+
+
+
+
+
+
 
 
 
