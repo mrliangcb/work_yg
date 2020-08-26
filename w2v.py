@@ -35,8 +35,8 @@ for i in range(10):
     label_all.append(label)
 f.close()
 
-print(text_all)
-print(label_all)
+# print(text_all)
+# print(label_all)
 
 
 def filter_stopwords(words):
@@ -55,7 +55,7 @@ def participle_from_file(text_list):
         # jieba.enable_parallel()
 
         words = jieba.cut(line.strip())
-
+        print('list之前是什么:',words)
         word_list = list(words)
 
         # words = filter_stopwords(words)
