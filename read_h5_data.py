@@ -12,6 +12,7 @@ for i in range(10):
     text=dset[i]
     text=text.decode()
     print(repr(text))
+    print(repr(text)[0])
 
 
 
