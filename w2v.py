@@ -17,7 +17,7 @@ print(list(f.keys()))
 dset = f['text']
 text_all=[]
 print(len(dset))
-for i in range(10): 
+for i in range(len(dset)): 
     text=dset[i]
     text=text.decode()
     text_all.append(text)
@@ -29,7 +29,8 @@ print(list(f.keys()))
 dset = f['label']
 label_all=[]
 print(len(dset))
-for i in range(10):
+
+for i in range(len(dset)):
     label=dset[i]
     label=label.decode()
     label_all.append(label)
@@ -54,8 +55,8 @@ def participle_from_file(text_list):
     for line in text_list:
         # jieba.enable_parallel()
 
-        words = jieba.cut(line.strip())
-        print('list之前是什么:',words)
+        words = jieba.cut(line.strip()) #输出的是对象
+
         word_list = list(words)
 
         # words = filter_stopwords(words)
@@ -73,13 +74,16 @@ print(fenci_label)
 
 #(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
 
+out_txt_path=r'./fenci/txt_spli.h5'
+out_label_path=r'./fenci/label_spli.h5'
 
+f = h5py.File(out_txt_path, 'w')
+dset = f.create_dataset("text", data=fenci_text)
+f.close()
 
-
-
-
-
-
+f = h5py.File(out_label_path, 'w')
+dset = f.create_dataset("label", data=fenci_label)
+f.close()
 
 
 
