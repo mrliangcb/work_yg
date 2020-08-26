@@ -1,10 +1,10 @@
 
 
 import h5py
-path=r'E:\coder\U_code\NLP\MY_PGN\weibo\src_assemble\text_all.h5'
+txt_path=r'./src_assemble/text_all.txt'
 
 
-f = h5py.File(path, 'r')
+f = h5py.File(txt_path, 'r')
 print(list(f.keys()))
 dset = f['text']
 print(len(dset))
