@@ -62,7 +62,7 @@ def participle_from_file(text_list):
 
         # jieba.disable_parallel()
         data_list.append(' '.join(word_list) .strip()) 
-        
+
     return data_list
 
 fenci_text=participle_from_file(text_all)
@@ -71,7 +71,7 @@ fenci_label=participle_from_file(label_all)
 print(fenci_text)
 print(fenci_label)
 
-(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
+#(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
 
 
 
