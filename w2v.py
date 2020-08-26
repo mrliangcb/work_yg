@@ -1,6 +1,7 @@
 import h5py
 import jieba
-
+from gensim.models.word2vec import LineSentence, Word2Vec
+from gensim.models import word2vec
 
 
 
@@ -69,26 +70,36 @@ def participle_from_file(text_list):
 fenci_text=participle_from_file(text_all)
 fenci_label=participle_from_file(label_all)
 
-print(fenci_text)
-print(fenci_label)
-fenci_text=[ i.encode()  for i in fenci_text]
-fenci_label=[ i.encode()  for i in fenci_label]
 
 
-#(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
-
-out_txt_path=r'./fenci/txt_spli.h5'
-out_label_path=r'./fenci/label_spli.h5'
-
-f = h5py.File(out_txt_path, 'w')
-dset = f.create_dataset("text", data=fenci_text)
-f.close()
-
-f = h5py.File(out_label_path, 'w')
-dset = f.create_dataset("label", data=fenci_label)
-f.close()
+# print(fenci_text)
+# print(fenci_label)
 
 
+# fenci_text=[ i.encode()  for i in fenci_text]
+# fenci_label=[ i.encode()  for i in fenci_label]
+
+
+# #(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
+
+# out_txt_path=r'./fenci/txt_spli.h5'
+# out_label_path=r'./fenci/label_spli.h5'
+
+# f = h5py.File(out_txt_path, 'w')
+# dset = f.create_dataset("text", data=fenci_text)
+# f.close()
+
+# f = h5py.File(out_label_path, 'w')
+# dset = f.create_dataset("label", data=fenci_label)
+# f.close()
+
+train_split=len(fenci_text)-500
+train_txt=fenci_text[:train_split]
+train_label=fenci_label[:train_split]
+
+print('start build w2v model')
+wv_model = Word2Vec(, size=300, negative=5, workers=8, iter=wv_train_epochs, window=3,
+                        min_count=5)
 
 
 
