@@ -1,7 +1,7 @@
 
 
 import h5py
-txt_path=r'./src_assemble/text_all.txt'
+txt_path=r'./src_assemble/text_all.h5'
 
 
 f = h5py.File(txt_path, 'r')
