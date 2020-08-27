@@ -34,6 +34,7 @@ def open_dic(path,mode):
                 out_dict[" "]=int(line[2:])
                 print('遇到空符号了',line)
             else:
+                pieces=line.split(' ')
                 if mode=='w2i':
                     # print('{}_{}'.format(pieces[0],pieces[1]))
                     out_dict[pieces[0]]=int(pieces[1])
