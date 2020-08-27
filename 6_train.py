@@ -97,9 +97,9 @@ def main(model_file_path=None):
 
 
 reload_path_glob=None
-weight_ROOT = "./weight"
-reload_path=os.path.join(weight_ROOT, 'reload','*.ckpt')
-reload_path_glob=glob.glob(reload_path)[0]
+# weight_ROOT = "./weight"
+# reload_path=os.path.join(weight_ROOT, 'reload','*.ckpt')
+# reload_path_glob=glob.glob(reload_path)[0]
 main(reload_path_glob)
 
 
