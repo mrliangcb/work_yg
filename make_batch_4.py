@@ -82,8 +82,11 @@ class example: #处理好的 一个文章 以及他对应的摘要
         article_words = article.split() #不含空格 可能产生\u200b
         article_words = [t.strip(u'\u200b') for t in article_words]
         article_words = [t for t in article_words if t != ""]
+
         self.src_article=article_words
-        
+        print('文章处理:',self.src_article)
+
+
         # 1.处理文章
         if len(article_words) > config.max_enc_steps: #文章长度太大
             article_words = article_words[:config.max_enc_steps] #截断
