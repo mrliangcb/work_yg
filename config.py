@@ -1,7 +1,7 @@
 import os
 import torch
 from numpy import random
-
+from gensim.models.word2vec import LineSentence, Word2Vec
 
 root_dir = "../weibo/finished_files"
 train_data_path = os.path.join(root_dir, "chunked/train_*")
@@ -23,7 +23,10 @@ max_dec_steps = 40
 beam_size = 4
 # min_dec_steps = 35
 min_dec_steps = 20
-vocab_size = 50_000
+
+wv_model = Word2Vec.load('./wv_model')
+vocab_size=len(embedding_matrix)
+# vocab_size = 50_000
 
 lr = 0.15
 adagrad_init_acc = 0.1

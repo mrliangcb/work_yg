@@ -6,6 +6,13 @@ import time
 print('1.3版本')
 
 
+# 我要把这几个词加入到w2v训练语料中，然后训练，使得这个词有对应的w2v
+PAD_TOKEN = '[PAD]' # This has a vocab id, which is used to pad the encoder input, decoder input and target sequence
+UNKNOWN_TOKEN = '[UNK]' # This has a vocab id, which is used to represent out-of-vocabulary words
+START_DECODING = '[START]' # This has a vocab id, which is used at the start of every decoder input sequence
+STOP_DECODING = '[STOP]' # This has a vocab id, which is used at the end of untruncated target sequences
+SENTENCE_START = '<s>'
+SENTENCE_END = '</s>'
 
 
 txt_path=r'./src_assemble/text_all.h5'
@@ -94,12 +101,22 @@ fenci_label=participle_from_file(label_all)
 # dset = f.create_dataset("label", data=fenci_label)
 # f.close()
 
+# 预料制作
 train_split=len(fenci_text)-500
 train_txt=fenci_text[:train_split]
 print('训练集长度:',len(train_txt))
 train_label=fenci_label[:train_split]
 
 train_w2v_list=train_txt+train_label
+
+for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING]:
+    w=w*10
+    train_w2v_list=train_w2v_list+w #特殊词加入到预料
+
+
+print('训练语料:',train_w2v_list[-10:])
+
+
 
 print('start build w2v model')
 start_time=time.time()

@@ -31,11 +31,21 @@ def init_wt_normal(wt):
 def init_wt_unif(wt):
     wt.data.uniform_(-config.rand_unif_init_mag, config.rand_unif_init_mag)
 
+
+
+class embedding(nn.Module):
+    def __init__(self,vocab_size,embedding_dim,pretrained_weight):
+        self.word_embeds = nn.Embedding(vocab_size, embedding_dim)
+        pretrained_weight = np.array(pretrained_weight)
+        self.embed.weight.data.copy_(torch.from_numpy(pretrained_weight))
+    def forward(self,x):
+        embedded = self.word_embeds(input_x)
+        return embedded
+
+
 class Encoder(nn.Module):
     def __init__(self):
         super(Encoder, self).__init__()
-        self.embedding = nn.Embedding(config.vocab_size, config.emb_dim) #动态的emb
-        init_wt_normal(self.embedding.weight) #初始化
 
         self.lstm = nn.LSTM(config.emb_dim, config.hidden_dim, num_layers=1, batch_first=True, bidirectional=True)
         # 双层lstm
@@ -44,8 +54,8 @@ class Encoder(nn.Module):
         self.W_h = nn.Linear(config.hidden_dim * 2, config.hidden_dim * 2, bias=False)
 
     # seq_lens: 1D tensor 应该降序排列
-    def forward(self, input_x, seq_lens):
-        embedded = self.embedding(input_x)
+    def forward(self, input_emb, seq_lens):
+        embedded = input_emb
 
         packed = pack_padded_sequence(embedded, seq_lens, batch_first=True) #长度要排好序
         self.lstm.flatten_parameters()
@@ -134,9 +144,6 @@ class Decoder(nn.Module):
         super(Decoder, self).__init__()
         self.attention_network = Attention()
         # decoder
-        self.embedding = nn.Embedding(config.vocab_size, config.emb_dim)
-        init_wt_normal(self.embedding.weight)
-
         self.x_context = nn.Linear(config.hidden_dim * 2 + config.emb_dim, config.emb_dim)
 
         self.lstm = nn.LSTM(config.emb_dim, config.hidden_dim, num_layers=1, batch_first=True, bidirectional=False)
@@ -150,7 +157,7 @@ class Decoder(nn.Module):
         self.out2 = nn.Linear(config.hidden_dim, config.vocab_size)
         init_linear_wt(self.out2)
 
-    def forward(self, y_t_1, s_t_1, encoder_outputs, encoder_feature, enc_padding_mask,
+    def forward(self, y_t_1_embd, s_t_1, encoder_outputs, encoder_feature, enc_padding_mask,
                 c_t_1, extra_zeros, enc_batch_extend_vocab, coverage, step):
 
         if not self.training and step == 0:
@@ -162,7 +169,7 @@ class Decoder(nn.Module):
                                                            enc_padding_mask, coverage)
             coverage = coverage_next
         # print('y_t_1是什么:',y_t_1)
-        y_t_1_embd = self.embedding(y_t_1)
+        
         # print('字典输出y_t_1_embd',y_t_1_embd) #[2,128]
         # print('c_t_1:',c_t_1) # [2,512]
         x_cat=torch.cat([c_t_1, y_t_1_embd], 1)
@@ -211,22 +218,31 @@ class Decoder(nn.Module):
             final_dist = vocab_dist
         return final_dist, s_t, c_t, attn_dist, p_gen, coverage
 
+from gensim.models.word2vec import LineSentence, Word2Vec
+
 class Model(object):#只是构建组件
     def __init__(self, model_file_path=None, is_eval=False):
         encoder = Encoder()
         decoder = Decoder()
         reduce_state = ReduceState()
 
+        wv_model = Word2Vec.load('./wv_model')
+        embedding_matrix = wv_model.wv.vectors
+
+        word_emb=embedding(len(embedding_matrix),128,embedding_matrix)
+
         # shared the embedding between encoder and decoder
-        decoder.embedding.weight = encoder.embedding.weight
+        # decoder.embedding.weight = encoder.embedding.weight
         if is_eval:
             encoder = encoder.eval()
             decoder = decoder.eval()
             reduce_state = reduce_state.eval()
+            word_emb=word_emb.eval()
         if USE_CUDA:
             encoder = encoder.to(DEVICE)
             decoder = decoder.to(DEVICE)
             reduce_state = reduce_state.to(DEVICE)
+            word_emb=word_emb.to(DEVICE)
         #if NUM_CUDA > 1:
         #    encoder = nn.DataParallel(encoder)
         #    decoder = nn.DataParallel(decoder)
@@ -234,6 +250,7 @@ class Model(object):#只是构建组件
         self.encoder = encoder
         self.decoder = decoder
         self.reduce_state = reduce_state
+        self.word_emb=word_emb
 
         # if model_file_path is not None:
         #     state = torch.load(model_file_path, map_location= lambda storage, location: storage)
@@ -265,15 +282,18 @@ def run_model(model,input_data,output_data):
     # target_batch正常
     # print('max_dec_len是cuda吗',max_dec_len) # 24
 
-    encoder_outputs, encoder_feature, encoder_hidden = model.encoder(enc_batch, enc_lens)
+    enc_batch_emb=model.word_emb(enc_batch)
+    encoder_outputs, encoder_feature, encoder_hidden = model.encoder(enc_batch_emb, enc_lens)
     s_t_1 = model.reduce_state(encoder_hidden)
     step_losses = []    
     # print('target是什么',target)
     # max_dec_len
     for di in range(min(max_dec_len, config.max_dec_steps)): #不是，是遍历0到目标长度
         y_t_1 = dec_batch[:, di] # 
+        y_t_1_embd=model.word_emb(y_t_1)
+
         final_dist, s_t_1,  c_t_1, attn_dist, p_gen, next_coverage =\
-            model.decoder(y_t_1, s_t_1,encoder_outputs, \
+            model.decoder(y_t_1_embd, s_t_1,encoder_outputs, \
             encoder_feature, enc_padding_mask, c_t_1,extra_zeros, \
             enc_batch_extend_vocab, coverage, di)
         

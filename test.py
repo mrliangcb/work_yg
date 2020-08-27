@@ -38,30 +38,32 @@ import re
 #     else:
 #         return ' '
 
-# x='我们http://www.baidu.com/ ，@hello企业 http://www.baidu.com'
-# y=clean_sentence(x)
-# print(y)
-from gensim.models.word2vec import LineSentence, Word2Vec
+# # x='我们http://www.baidu.com/ ，@hello企业 http://www.baidu.com'
+# # y=clean_sentence(x)
+# # print(y)
+# from gensim.models.word2vec import LineSentence, Word2Vec
 
-wv_model = Word2Vec.load('./wv_model')
+# wv_model = Word2Vec.load('./wv_model')
 
-embedding_matrix = wv_model.wv.vectors
-print(embedding_matrix)
-print(type(embedding_matrix))
-print(len(embedding_matrix))
+# embedding_matrix = wv_model.wv.vectors
+# # print(embedding_matrix)
+# # print(type(embedding_matrix))
+# # print(len(embedding_matrix))
 
-print('vocab是什么:',wv_model.wv.vocab)
-print(len(wv_model.wv.vocab))
+# # print('vocab是什么:',wv_model.wv.vocab)
+# # print(len(wv_model.wv.vocab))
 
-dic={}
-for i,j in enumerate(wv_model.wv.index2word):
-    dic[j]=i
-# print('index2word字典是什么:',wv_model.wv.index2word)
-# print('自定义字典是什么s:',dic)
-
-
+# dic={}
+# for i,j in enumerate(wv_model.wv.index2word):
+#     dic[j]=i
+# # print('index2word字典是什么:',wv_model.wv.index2word)
+# # print('自定义字典是什么s:',dic)
 
 
+
+x=['unk']
+
+print(x*6)
 
 
 
