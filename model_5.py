@@ -31,8 +31,6 @@ def init_wt_normal(wt):
 def init_wt_unif(wt):
     wt.data.uniform_(-config.rand_unif_init_mag, config.rand_unif_init_mag)
 
-
-
 class embedding(nn.Module):
     def __init__(self,vocab_size,embedding_dim,pretrained_weight):
         self.word_embeds = nn.Embedding(vocab_size, embedding_dim)
@@ -229,7 +227,7 @@ class Model(object):#只是构建组件
         wv_model = Word2Vec.load('./wv_model')
         embedding_matrix = wv_model.wv.vectors
 
-        word_emb=embedding(len(embedding_matrix),128,embedding_matrix)
+        word_emb=embedding(len(embedding_matrix),config.emb_dim,embedding_matrix)
 
         # shared the embedding between encoder and decoder
         # decoder.embedding.weight = encoder.embedding.weight

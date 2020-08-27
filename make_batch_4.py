@@ -360,33 +360,16 @@ def train_batch_out(text_path,label_path,vocab,batch_size):
     text_count=0
     label_count=0
     now_step=0
-    
-    print('正在解码txt')
-    f = h5py.File(text_path, 'r')
-    print(list(f.keys()))
-    dset = f['text']
-    text_all=[]
-    for i in range(len(dset)): 
-        text=dset[i]
-        text=text.decode()
-        text_all.append(text)
-    f.close()
+    with open(text_path, 'r',encoding='utf-8') as f1:
+        for text in f1:
+            text_count+=1
+    with open(label_path, 'r',encoding='utf-8') as f2:
+        for text in f2:
+            label_count+=1
 
-    print('正在解码label')
-    f = h5py.File(lable_path, 'r')
-    print(list(f.keys()))
-    dset = f['label']
-    label_all=[]
-    for i in range(len(dset)):
-    label=dset[i]
-    label=label.decode()
-    label_all.append(label)
-    f.close()
-    
-    
-    
-    
-    
+    if text_count!=label_count:
+        print('文章和摘要数量不同，出错!!')
+        return
     else:
         print('数据集总长',text_count)
         batch_all_num=text_count/config.batch_size
@@ -402,6 +385,8 @@ def train_batch_out(text_path,label_path,vocab,batch_size):
         # random.shuffle(label_all)
         # random.shuffle(label_all)
         # label_all=label_all[:33]
+    print('前五个文章:',text_all[:5])
+    print('前五个label:',label_all[:5])
     num_list=list(range(0,len(label_all)))
     random.shuffle(num_list) #做乱序的下标
     for i in num_list:

@@ -22,8 +22,8 @@ print('是否cuda:',USE_CUDA)
 def main(model_file_path=None):
     train_w2i_path = './word2id_dic.txt'
     train_i2w_path = './id2word_dic.txt'
-    train_text_path = './src_assemble/text_all.h5'
-    train_label_path = './src_assemble/label_all.h5'
+    train_text_path = './fenci/txt_fenci.txt'
+    train_label_path = './fenci/label_fenci.txt'
     
     vocab=Vocab(train_w2i_path,train_i2w_path)
     epoch=700

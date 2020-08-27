@@ -70,6 +70,8 @@ with open(out_label_path,'r', encoding='utf-8') as f:
     label=f.readlines()
 
 print(txt[:10])
+
+
 print(label[:10])
 
 
