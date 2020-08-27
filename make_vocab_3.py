@@ -11,7 +11,7 @@ from random import shuffle
 from queue import Queue
 from torch.autograd import Variable
 
-import config
+# import config
 import sys
 
 print('make_vocab的1.3版本')
