@@ -5,7 +5,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import config
 from config import USE_CUDA, DEVICE
 import os
-
+import numpy as np
 def init_lstm_wt(lstm):
     for names in lstm._all_weights:
         for name in names:
