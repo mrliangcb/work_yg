@@ -398,7 +398,7 @@ def train_batch_out(text_path,label_path,vocab,batch_size):
         # label_all=label_all[:33]
     print('前五个文章:',text_all[:5])
     print('前五个label:',label_all[:5])
-    num_list=list(range(0,len(label_all)))
+    num_list=list(range(0,len(label_all)-500))
     random.shuffle(num_list) #做乱序的下标
     for i in num_list:
         ex_batch=example(text_all[i],label_all[i],vocab)
