@@ -33,6 +33,7 @@ def init_wt_unif(wt):
 
 class embedding(nn.Module):
     def __init__(self,vocab_size,embedding_dim,pretrained_weight):
+        super(embedding, self).__init__()
         self.word_embeds = nn.Embedding(vocab_size, embedding_dim)
         pretrained_weight = np.array(pretrained_weight)
         self.embed.weight.data.copy_(torch.from_numpy(pretrained_weight))
