@@ -50,5 +50,22 @@ print(embedding_matrix)
 print(type(embedding_matrix))
 print(len(embedding_matrix))
 
+print('vocab是什么:',wv_model.wv.vocab)
+print(len(wv_model.wv.vocab))
+
+dic={}
+for i,j in enumerate(wv_model.wv.index2word):
+    dic[j]=i
+print('index2word字典是什么:',wv_model.wv.index2word)
+print('自定义字典是什么s:',dic)
+
+
+
+
+
+
+
+
+
 
 
