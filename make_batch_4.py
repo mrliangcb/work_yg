@@ -78,7 +78,7 @@ class example: #处理好的 一个文章 以及他对应的摘要
 
     """
     def __init__(self,article, abstract, vocab): # 含空格，非split的，输入一个句子
-        article_words=article_words.strip()
+        article=article.strip()
         article_words = article.split() #不含空格 可能产生\u200b
         article_words = [t.strip(u'\u200b') for t in article_words]
         article_words = [t for t in article_words if t != ""]
@@ -91,7 +91,7 @@ class example: #处理好的 一个文章 以及他对应的摘要
         self.article_id=[vocab.word2id(w) for w in article_words] #就是enc_input  含unk
         #2.处理摘要
         
-        abstract_words=abstract_words.strip()
+        abstract=abstract.strip()
         abstract_words = abstract.split() # split 无空格
         abstract_words = [t.strip(u'\u200b') for t in abstract_words]
         abstract_words = [t for t in abstract_words if t != ""]
