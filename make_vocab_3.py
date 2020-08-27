@@ -67,13 +67,24 @@ def make_train_vocab(words_count_path,w2i_path,i2w_path,max_size): #
     # print("完成词典2，共 {} 个词. 最新词: {}".format(count, id2word_dic[count-1]))
 
 
-DATA_ROOT = "./weibo"
-train_w2i_path = os.path.join(DATA_ROOT, "train_w2i.txt")
-train_i2w_path = os.path.join(DATA_ROOT, "train_i2w.txt")
-words_count_path=os.path.join(DATA_ROOT, "words_count.txt")
-make_train_vocab(words_count_path,train_w2i_path,train_i2w_path,config.vocab_size) # 词 对应编码 字典
+# DATA_ROOT = "./weibo"
+# train_w2i_path = os.path.join(DATA_ROOT, "train_w2i.txt")
+# train_i2w_path = os.path.join(DATA_ROOT, "train_i2w.txt")
+# words_count_path=os.path.join(DATA_ROOT, "words_count.txt")
+# make_train_vocab(words_count_path,train_w2i_path,train_i2w_path,config.vocab_size) # 词 对应编码 字典
 
+from gensim.models.word2vec import LineSentence, Word2Vec
+wv_model = Word2Vec.load('./wv_model')
 
+print('制作词典word2id')
+dic={}
+for i,j in enumerate(wv_model.wv.index2word):
+    dic[j]=i
+
+print('pad的id',dic['[PAD]'])
+print(dic['[UNK]'])
+dic_out_path=r'./word2id_dic.txt'
+save_dic(dic,dic_out_path)
 
 
 
