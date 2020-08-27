@@ -127,7 +127,7 @@ class Attention(nn.Module):
         attn_dist = attn_dist_ / normalization_factor
 
         attn_dist = attn_dist.unsqueeze(1)           # B x 1 x t_k
-        c_t = torch.bmm(attn_dist,  )  # B x 1 x n
+        c_t = torch.bmm(attn_dist,encoder_outputs)  # B x 1 x n
         c_t = c_t.view(-1, config.hidden_dim * 2)    # B x 2*hidden_dim
         # c_t就是context vector
         attn_dist = attn_dist.view(-1, t_k)          # B x t_k
