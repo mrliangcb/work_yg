@@ -26,6 +26,7 @@ SENTENCE_END = '</s>'
 
 
 def open_dic(path,mode):
+    print('open_dic的输入:',path)
     with open(path, 'r',encoding='utf-8') as f: #打开 (词 出现次数)词典
         out_dict={}
         for line in f:
