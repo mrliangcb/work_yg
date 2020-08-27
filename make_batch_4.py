@@ -30,7 +30,9 @@ def open_dic(path,mode):
     with open(path, 'r',encoding='utf-8') as f: #打开 (词 出现次数)词典
         out_dict={}
         for line in f:
+            print('split之前:',line)
             pieces = line.split()
+            print('split之后:',pieces)
             if mode=='w2i':
                 # print('{}_{}'.format(pieces[0],pieces[1]))
                 out_dict[pieces[0]]=int(pieces[1])
