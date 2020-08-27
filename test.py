@@ -61,13 +61,13 @@ import re
 
 
 
-x=['unk']
+x='unk'
 
-print(x*6)
+b=[['我','要上学']]
 
-
-
-
-
+y=[[x]*10]
+print(y)
+b=b+y
+print(b)
 
 

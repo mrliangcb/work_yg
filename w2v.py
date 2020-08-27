@@ -105,18 +105,18 @@ fenci_label=participle_from_file(label_all)
 # 预料制作
 train_split=len(fenci_text)-500
 train_txt=fenci_text[:train_split]
-print('训练集长度:',len(train_txt)) #679898
+print('训练集长度:',len(train_txt)) #679398   少了500
 train_label=fenci_label[:train_split]
 
 train_w2v_list=train_txt+train_label
 
 for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING]:
-    w=[w]*10
+    w=[[w]*10]
     train_w2v_list=train_w2v_list+w #特殊词加入到预料
 
 
-print('训练语料:',train_w2v_list[-10:])
-
+print('训练语料:',train_w2v_list[-20:])
+print('训练语料:',len(train_w2v_list))
 
 
 print('start build w2v model')
