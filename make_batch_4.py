@@ -84,7 +84,7 @@ class example: #处理好的 一个文章 以及他对应的摘要
         article_words = [t for t in article_words if t != ""]
 
         self.src_article=article_words
-        print('文章处理:',self.src_article)
+        # print('文章处理:',self.src_article)
 
 
         # 1.处理文章
