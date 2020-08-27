@@ -84,8 +84,8 @@ for i,j in enumerate(wv_model.wv.index2word):
     w2i[j]=i
     i2w[i]=j
 
-print('pad的id',dic['[PAD]'])
-print(dic['[UNK]'])
+print('pad的id',w2i['[PAD]'])
+print(w2i['[UNK]'])
 dic_out_path1=r'./word2id_dic.txt'
 dic_out_path2=r'./id2word_dic.txt'
 
