@@ -61,12 +61,16 @@ import re
 
 
 
+out_txt_path=r'./fenci/txt_fenci.txt'
+with open(out_txt_path,'r', encoding='utf-8') as f:
+    txt=f.readlines()
 
+out_label_path=r'./fenci/label_fenci.txt'
+with open(out_label_path,'r', encoding='utf-8') as f:
+    label=f.readlines()
 
-
-
-
-
+print(txt[:10])
+print(label[:10])
 
 
 
