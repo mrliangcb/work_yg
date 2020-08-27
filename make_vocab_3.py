@@ -14,6 +14,7 @@ from torch.autograd import Variable
 import config
 import sys
 
+print('make_vocab的1.3版本')
 PAD_TOKEN = '[PAD]' # This has a vocab id, which is used to pad the encoder input, decoder input and target sequence
 UNKNOWN_TOKEN = '[UNK]' # This has a vocab id, which is used to represent out-of-vocabulary words
 START_DECODING = '[START]' # This has a vocab id, which is used at the start of every decoder input sequence
