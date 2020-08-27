@@ -268,7 +268,7 @@ class Model(object):#只是构建组件
             'optimizer': optimizer.state_dict(),
             'current_loss': loss
         }
-        weight_ROOT = "./weight/pointer"
+        weight_ROOT = "./weight"
         model_save_path = os.path.join(weight_ROOT, 'model_{:.4f}_{}_{}.ckpt'.format(loss,epo,iter_step ))
         torch.save(state, model_save_path)
 
