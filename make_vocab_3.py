@@ -78,15 +78,19 @@ from gensim.models.word2vec import LineSentence, Word2Vec
 wv_model = Word2Vec.load('./wv_model')
 
 print('制作词典word2id')
-dic={}
+w2i={}
+i2w={}
 for i,j in enumerate(wv_model.wv.index2word):
-    dic[j]=i
+    w2i[j]=i
+    i2w[i]=j
 
 print('pad的id',dic['[PAD]'])
 print(dic['[UNK]'])
-dic_out_path=r'./word2id_dic.txt'
-save_dic(dic,dic_out_path)
+dic_out_path1=r'./word2id_dic.txt'
+dic_out_path2=r'./id2word_dic.txt'
 
+save_dic(w2i,dic_out_path1)
+save_dic(i2w,dic_out_path2)
 
 
 

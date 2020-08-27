@@ -25,7 +25,7 @@ beam_size = 4
 min_dec_steps = 20
 
 wv_model = Word2Vec.load('./wv_model')
-vocab_size=len(embedding_matrix)
+vocab_size=len(wv_model.wv.vocab)
 # vocab_size = 50_000
 
 lr = 0.15

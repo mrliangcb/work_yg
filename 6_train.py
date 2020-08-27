@@ -20,11 +20,10 @@ print('是否cuda:',USE_CUDA)
 
 
 def main(model_file_path=None):
-    DATA_ROOT = "./weibo"
-    train_w2i_path = os.path.join(DATA_ROOT, "train_w2i.txt")
-    train_i2w_path = os.path.join(DATA_ROOT, "train_i2w.txt")
-    train_text_path = os.path.join(DATA_ROOT, "train_text.txt")
-    train_label_path = os.path.join(DATA_ROOT, "train_label.txt")
+    train_w2i_path = './word2id_dic.txt'
+    train_i2w_path = './id2word_dic.txt'
+    train_text_path = './src_assemble/text_all.h5'
+    train_label_path = './src_assemble/label_all.h5'
     
     vocab=Vocab(train_w2i_path,train_i2w_path)
     epoch=700

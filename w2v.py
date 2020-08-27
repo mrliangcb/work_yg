@@ -79,6 +79,17 @@ print('开始分词')
 fenci_text=participle_from_file(text_all)   #就是   [['词1','词2'],['词3','词4']]
 fenci_label=participle_from_file(label_all)
 
+out_txt_path=r'./fenci/txt_fenci.txt'
+with open(out_txt_path,'w', encoding='utf-8') as writer:
+    for row in fenci_text:
+        row=' '.join(row) .strip()
+        writer.write(row+'\n')
+
+out_label_path=r'./fenci/label_fenci.txt'
+with open(out_label_path,'w', encoding='utf-8') as writer:
+    for row in fenci_label:
+        row=' '.join(row) .strip()
+        writer.write(row+'\n')
 
 
 # print(fenci_text)
@@ -91,7 +102,7 @@ fenci_label=participle_from_file(label_all)
 
 # #(?# stop_w_path=r'./stopwords/哈工大停用词表.txt')
 
-# out_txt_path=r'./fenci/txt_spli.h5'
+# 
 # out_label_path=r'./fenci/label_spli.h5'
 
 # f = h5py.File(out_txt_path, 'w')
@@ -102,39 +113,39 @@ fenci_label=participle_from_file(label_all)
 # dset = f.create_dataset("label", data=fenci_label)
 # f.close()
 
-# 预料制作
-train_split=len(fenci_text)-500
-train_txt=fenci_text[:train_split]
-print('训练集长度:',len(train_txt)) #679398   少了500
-train_label=fenci_label[:train_split]
+# # 预料制作
+# train_split=len(fenci_text)-500
+# train_txt=fenci_text[:train_split]
+# print('训练集长度:',len(train_txt)) #679398   少了500
+# train_label=fenci_label[:train_split]
 
-train_w2v_list=train_txt+train_label
+# train_w2v_list=train_txt+train_label
 
-for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING]:
-    w=[[w]*10]
-    train_w2v_list=train_w2v_list+w #特殊词加入到预料
-
-
-print('训练语料:',train_w2v_list[-20:])
-print('训练语料:',len(train_w2v_list))
+# for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING]:
+#     w=[[w]*10]
+#     train_w2v_list=train_w2v_list+w #特殊词加入到预料
 
 
-print('start build w2v model')
-start_time=time.time()
-wv_model = Word2Vec(train_w2v_list, size=128, negative=5, workers=8, iter=50, window=3,
-                        min_count=5)
-finish_time=time.time()
-print('训练时间:',start_time-finish_time)
-# vocab = wv_model.wv.vocab
+# print('训练语料:',train_w2v_list[-20:])
+# print('训练语料:',len(train_w2v_list))
 
-dic={}
-for i,j in enumerate(wv_model.wv.index2word):
-    dic[j]=i
-print(dic)
 
-wv_model.save(r'./wv_model')
-# embedding_matrix = wv_model.wv.vectors
-# np.savetxt('./embedding_w.txt', embedding_matrix, fmt='%0.8f')
+# print('start build w2v model')
+# start_time=time.time()
+# wv_model = Word2Vec(train_w2v_list, size=128, negative=5, workers=8, iter=50, window=3,
+#                         min_count=5)
+# finish_time=time.time()
+# print('训练时间:',start_time-finish_time)
+# # vocab = wv_model.wv.vocab
+
+# dic={}
+# for i,j in enumerate(wv_model.wv.index2word):
+#     dic[j]=i
+# print(dic)
+
+# wv_model.save(r'./wv_model')
+# # embedding_matrix = wv_model.wv.vectors
+# # np.savetxt('./embedding_w.txt', embedding_matrix, fmt='%0.8f')
 
 
 
