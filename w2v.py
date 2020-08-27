@@ -3,7 +3,7 @@ import jieba
 from gensim.models.word2vec import LineSentence, Word2Vec
 from gensim.models import word2vec
 import time
-print('1.3版本')
+print('1.4版本')
 
 
 # 我要把这几个词加入到w2v训练语料中，然后训练，使得这个词有对应的w2v
