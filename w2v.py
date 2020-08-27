@@ -19,19 +19,19 @@ txt_path=r'./src_assemble/text_all.h5'
 lable_path=r'./src_assemble/label_all.h5'
 
 
-
+print('正在解码txt')
 f = h5py.File(txt_path, 'r')
 print(list(f.keys()))
 dset = f['text']
 text_all=[]
-print(len(dset))
+print(len(dset))#679898
 for i in range(len(dset)): 
     text=dset[i]
     text=text.decode()
     text_all.append(text)
 f.close()
 
-
+print('正在解码label')
 f = h5py.File(lable_path, 'r')
 print(list(f.keys()))
 dset = f['label']
@@ -75,6 +75,7 @@ def participle_from_file(text_list):
 
     return data_list
 
+print('开始分词')
 fenci_text=participle_from_file(text_all)   #就是   [['词1','词2'],['词3','词4']]
 fenci_label=participle_from_file(label_all)
 
@@ -104,13 +105,13 @@ fenci_label=participle_from_file(label_all)
 # 预料制作
 train_split=len(fenci_text)-500
 train_txt=fenci_text[:train_split]
-print('训练集长度:',len(train_txt))
+print('训练集长度:',len(train_txt)) #679898
 train_label=fenci_label[:train_split]
 
 train_w2v_list=train_txt+train_label
 
 for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING]:
-    w=w*10
+    w=[w]*10
     train_w2v_list=train_w2v_list+w #特殊词加入到预料
 
 
