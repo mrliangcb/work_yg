@@ -36,7 +36,7 @@ class embedding(nn.Module):
         super(embedding, self).__init__()
         self.word_embeds = nn.Embedding(vocab_size, embedding_dim)
         pretrained_weight = np.array(pretrained_weight)
-        self.embed.weight.data.copy_(torch.from_numpy(pretrained_weight))
+        self.word_embeds.weight.data.copy_(torch.from_numpy(pretrained_weight))
     def forward(self,x):
         embedded = self.word_embeds(input_x)
         return embedded
